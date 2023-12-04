@@ -2,7 +2,6 @@ import sys
 import os
 from src.exceptions import AddressError
 
-# Check if the filename has the correct extension
 def validate_filename(filename):
     """
     filename: string -> boolean
@@ -13,7 +12,6 @@ def validate_filename(filename):
         return True
     return False
 
-# Check if the path exists
 def validate_path(path):
     """
     path: string -> boolean
@@ -23,7 +21,6 @@ def validate_path(path):
         return True
     return False
 
-# Check if the file is valid
 def validate_orion_file(path):
     """
     path: string -> boolean
@@ -33,28 +30,60 @@ def validate_orion_file(path):
         return True
     return False
 
-# Define a class for the program counter, tracks the current instruction
 class ProgramCounter:
+    """
+    Class for the program counter, tracks the current instruction
+    """
     def __init__(self):
+        """
+        Constructor for the program counter, takes no arguments
+        """
         self.__pc = 0
     
     def increment(self):
+        """
+        Increments the program counter by 1
+        """
         self__pc += 1
     
     def get(self):
+        """
+        Returns the current value of the program counter
+        """
         return self.__pc
 
     def jump(self, address):
+        """
+        address: int -> None
+
+        Modify the program counter to a specific address
+        """
         self.__pc = address
     
 class LabelMap:
+    """
+    Class for the label map, maps labels to addresses
+
+    This class controls jumps and branches around the program
+    """
     def __init__(self):
+        """
+        Constructor for the label map, takes no arguments
+        """
         self.__labels = {}
     
     def addLabel(self, label, address):
+        """
+        label: string, address: int -> None
+        """
         self.__labels[label] = address
     
-    def getLabel(self, label):
+    def getAddressFromLabel(self, label):
+        """
+        label: string -> int
+
+        Returns the address of a label
+        """
         return self.__labels[label]
 
 # Define a class for the instruction memory
