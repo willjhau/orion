@@ -1,3 +1,5 @@
+from src.exceptions import LabelNameError
+
 class LabelMap:
     """
     Class for the label map, maps labels to addresses
@@ -14,6 +16,9 @@ class LabelMap:
         """
         label: string, address: int -> None
         """
+        # Check if the label already exists
+        if label in self.__labels:
+            raise LabelNameError(f"Label `{label}` already exists")
         self.__labels[label] = address
     
     def getAddressFromLabel(self, label):
