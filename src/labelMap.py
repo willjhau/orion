@@ -1,4 +1,4 @@
-from src.exceptions import LabelNameError
+from exceptions import LabelNameError
 
 class LabelMap:
     """

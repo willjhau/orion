@@ -1,8 +1,16 @@
-class dataType:
+class oData:
+    def __init__(self, name: str):
+        pass
+
+
+class oDataType(oData):
     """
     Generic data type class
     """
-    
+
+    def __init__(self, name):
+        pass
+
     @staticmethod
     def isValid(value):
         """
@@ -11,11 +19,37 @@ class dataType:
         Returns whether or not the value is valid for the data type
         """
         return False
+    
+    def getValue(self):
+        """
+        None -> any
 
-class oInt(dataType):
+        Getter for the value of an oDataType object
+        Returns the integer value
+        """
+        return self.__value
+    
+    def setValue(self, value):
+        """
+        value: any -> None
+
+        Setter for the value of an oDataType object
+        """
+        self.__value = value
+
+class oInt(oDataType):
     """
     Data type for Orion integers
     """
+    typeName = "oInt"
+
+    def __init__(self, value: int):
+        """
+        value: int -> None
+
+        oInt constructor
+        """
+        self.__value = value
 
     @staticmethod
     def isValid(value):
@@ -31,10 +65,16 @@ class oInt(dataType):
         except ValueError:
             return False
 
-class oFloat(dataType):
+class oFloat(oDataType):
     """
     Data type for Orion floats
     """
+
+    typeName = "oFloat"
+
+    def __init__(self, value: float):
+        self.value = value
+
 
     @staticmethod
     def isValid(value):
@@ -43,6 +83,7 @@ class oFloat(dataType):
 
         Returns whether or not the value is a float
         """
+
         try:
             float(value)
         except ValueError:
@@ -50,10 +91,17 @@ class oFloat(dataType):
         
         return True
     
-class oString(dataType):
+    
+class oString(oDataType):
     """
     Data type for Orion strings
     """
+
+    typeName = "oString"
+
+    def __init__(self, s: str):
+        self.value = s
+
 
     @staticmethod
     def isValid(value):
@@ -66,10 +114,20 @@ class oString(dataType):
             return True
         return False
     
-class oBool(dataType):
+
+    """
+    ADD STRING FUNCTIONALITY
+    """
+    
+class oBool(oDataType):
     """
     Data type for Orion booleans
     """
+
+    typeName = "oBool"
+
+    def __init__(self, value:bool):
+        self.value = value
 
     @staticmethod
     def isValid(value):
@@ -84,10 +142,15 @@ class oBool(dataType):
             return True
         return False
     
-class oChar(dataType):
+class oChar(oDataType):
     """
     Data type for Orion characters
     """
+
+    typeName = "oChar"
+
+    def __init__(self, value):
+        self.value = value
 
     @staticmethod
     def isValid(value):
