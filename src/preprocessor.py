@@ -1,46 +1,33 @@
-from instructionMemory import InstructionMemory
-from labelMap import LabelMap
+from codeFile import CodeFile
+from exceptions import *
 from specialCharacters import SpecialCharacters
 
-class Parser:
-    """
-    Converts the source code into instruction memory and label map
-    """
-    def __init__(self, path: str):
+class Preprocessor:
+    def __init__(self, code: CodeFile):
         """
-        path: str -> None
+        code: CodeFile -> None
 
-        Constructor for the parser class. Initialises instruction memory and label map
+        Constructor for the preprocessor class
         """
+        self.__code = code
+        self.__processedCode = []
+        self.__preprocess()
 
-        self.path = path
-        self.instructionMemory = InstructionMemory(None)
-        self.labelMap = LabelMap()
-        self.__characterSet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+-=/.\'\"%^*()[]<>#_;"
-
-    def __getNextElement(self, line: str, array = False):
+    def __checkIllegalCharacters(self, line: str):
         """
-        line: str -> str
+        line: str -> True
 
-        Reads a line of orion code and returns the first item
+        Reads a line of orion code and checks for any illegal characters, returning True if there are none
         """
 
-        output = ""
+        stringCharacterMap = self.__getStringCharacterMap(line)
 
-        if array:
-            if line[0] == SpecialCharacters.ARGUMENT_SEPARATOR:
-                return output
-            if line[0] == '\"':
-                output += line[0]
-                line = line[1:]
-                while len(line) != 0:
-                    if line[0] == '\"':
-                        output += line[0]
-                        return output
-                    output += line[0]
-                    line = line[1:]
-                raise SyntaxError("String not terminated")
+        for char, isString in stringCharacterMap:
+            if not isString and char not in SpecialCharacters.ALLOWED_CHARACTERS:
+                raise SyntaxError("Illegal character found in line: " + line)
             
+        return True
+
     def __getStringCharacterMap(self, line: str):
         """
         line: str -> Tuple[](chr, boolean)
@@ -98,18 +85,51 @@ class Parser:
             strippedLine += char
 
         return strippedLine
-
     
-if __name__ == "__main__":
+    def __removeWhitespace(self, line):
+        """
+        line: str -> str
 
-    parser = Parser("dummy")
+        Reads a line of orion code and removes whitespace. Returns the same line without whitespace
+        """
 
-    print(parser.removeComment("abcdef\"ghi#testjkl\"mn#testop\"qrs\\\"tuv\"wxyz#test"))
+        strippedLine = ""
 
+        stringCharacterMap = self.__getStringCharacterMap(line)
 
+        for char, isString in stringCharacterMap:
+            if char == " " and (not isString):
+                continue
+            
+            strippedLine += char
 
+        return strippedLine
+    
+
+    def __preprocess(self):
+        """
+        None -> None
+
+        Preprocesses the code and returns
+        """
+
+        for line in self.__code.getLines():
+            if not self.__checkIllegalCharacters(line):
+                continue
+    
+            if line == "":
+                continue
+
+            lineNoComment = self.__removeComment(line)
+            lineNoWhitespace = self.__removeWhitespace(lineNoComment)
         
+    def getProcessedCode(self):
+        """
+        None -> str[]
 
+        Returns the processed code
+        """
 
+        return self.__processedCode
 
 

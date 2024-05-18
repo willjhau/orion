@@ -5,6 +5,7 @@ class oDataStructure(oData):
     def __init__(self, name: str):
         pass
 
+
 class oArray(oDataStructure):
     """
     Data structure class for Orion arrays

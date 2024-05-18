@@ -1,0 +1,58 @@
+Statement -> FunctionCall &;
+Statement -> Label &:
+Statement -> Declaration &;
+Statement -> Assignment &;
+Statement -> Expression &;
+FunctionCall -> Identifier &( MaybeSpace ArgumentList MaybeSpace &)
+ArgumentList -> Expression &, MaybeSpace ArgumentList
+ArgumentList -> Expression
+ArgumentList -> ~
+Expression -> RelationalExpression
+Expression -> SimpleExpression
+SimpleExpression -> Term MaybeSpace AddOperator MaybeSpace SimpleExpression
+SimpleExpression -> Term
+RelationalExpression -> SimpleExpression MaybeSpace RelationalOperator MaybeSpace SimpleExpression
+Term -> Factor MaybeSpace MultiplyOperator MaybeSpace Term
+Term -> Factor
+Factor -> &- FloatLiteral
+Factor -> &- IntegerLiteral
+Factor -> Literal
+Factor -> &( MaybeSpace Expression MaybeSpace &)
+Factor -> FunctionCall
+Factor -> ArrayAccess
+Factor -> Identifier
+ArrayAccess -> Identifier &[ MaybeSpace Expression MaybeSpace &]
+FloatLiteral -> IntegerLiteral &. IntegerLiteral
+AddOperator -> &+
+AddOperator -> &-
+MultiplyOperator -> &*
+MultiplyOperator -> &/
+RelationalOperator -> &= &=
+RelationalOperator -> &! &=
+RelationalOperator -> &< &=
+RelationalOperator -> &> &=
+RelationalOperator -> &<
+RelationalOperator -> &>
+Declaration -> Type $ Identifier MaybeSpace &= MaybeSpace Expression
+Declaration -> Type $ Identifier
+Assignment -> StandardAssignment
+Assignment -> ArrayAssignment
+StandardAssignment -> Identifier MaybeSpace &= MaybeSpace Expression
+ArrayAssignment -> ArrayAccess MaybeSpace &= MaybeSpace Expression
+Literal -> FloatLiteral
+Literal -> IntegerLiteral
+Literal -> StringLiteral
+Literal -> BooleanLiteral
+Literal -> CharacterLiteral
+StringLiteral -> &" String &"
+BooleanLiteral -> &t &r &u &e
+BooleanLiteral -> &f &a &l &s &e
+CharacterLiteral -> &' Character &'
+Type -> &b &o &o &l &e &a &n
+Type -> &S &t &r &i &n &g
+Type -> &f &l &o &a &t
+Type -> &c &h &a &r
+Type -> &i &n &t
+Label -> Identifier
+MaybeSpace -> $
+MaybeSpace -> ~

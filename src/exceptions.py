@@ -12,3 +12,12 @@ class IllegalTypeError(Exception):
 
 class IndexOutOfBoundsError(Exception):
     pass
+
+class StringNotTerminatedError(Exception):
+    pass
+
+class IllegalCharacterError(Exception):
+    pass
+
+class IllegalNumberError(Exception):
+    pass

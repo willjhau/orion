@@ -1,0 +1,12 @@
+main:
+int x = 4;
+int y = 5;
+int z = x+y;
+float a = 3.5;
+char b = 'a';
+String c = "Hello";
+boolean d = true;
+x = func(y, z);
+x-2*(y+z);
+int q = array(6);
+q[0] = 1;
