@@ -12,6 +12,16 @@ class Preprocessor:
         self.__code = code
         self.__processedCode = []
         self.__preprocess()
+        self.__code.importFromList(self.__processedCode)
+    
+    def getCode(self):
+        """
+        None -> CodeFile
+
+        Returns the code
+        """
+
+        return self.__code
 
     def __checkIllegalCharacters(self, line: str):
         """
