@@ -2,7 +2,6 @@ from src.labelMap import LabelMap
 from src.programCounter import ProgramCounter
 from src.instructionMemory import InstructionMemory
 from src.exceptions import AddressError
-from src.Grammar.SyntaxTree import SyntaxTreeNode
 
 class Linker:
     def __init__(self, codeTrees: list):
@@ -14,7 +13,7 @@ class Linker:
     def fillMemory(self):
         i = 0
         while i < len(self.__codeTrees):
-            tree:SyntaxTreeNode = self.__codeTrees[i]
+            tree = self.__codeTrees[i]
             if tree.children[0].symbol == "Label":
                 self.__labelMap.addLabel(tree.children[0].matched_string, i)
             else:

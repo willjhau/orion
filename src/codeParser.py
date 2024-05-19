@@ -1,5 +1,4 @@
-from src.Grammar import grammar
-from src.Grammar import SyntaxTree
+import src.grammar as grammar
 from src.codeFile import CodeFile
 
 class CodeParser:

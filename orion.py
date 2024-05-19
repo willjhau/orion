@@ -7,7 +7,7 @@ from src.programCounter import ProgramCounter
 from src.codeFile import CodeFile
 from src.preprocessor import Preprocessor
 from src.codeParser import CodeParser
-from src.linker import Linker
+# from src.linker import Linker
 
 def validate_filename(filename):
     """
