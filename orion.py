@@ -4,6 +4,10 @@ from src.exceptions import AddressError
 from src.instructionMemory import InstructionMemory
 from src.labelMap import LabelMap
 from src.programCounter import ProgramCounter
+from src.codeFile import CodeFile
+from src.preprocessor import Preprocessor
+from src.codeParser import CodeParser
+from src.linker import Linker
 
 def validate_filename(filename):
     """
@@ -32,4 +36,32 @@ def validate_orion_file(path):
     if validate_path(path) and validate_filename(path):
         return True
     return False
+
+print(1)
+if __name__ == "__main__":
+    print(0)
+    if len(sys.argv) != 2:
+        print("Usage: python3 orion.py <filename>")
+        sys.exit(1)
+    
+    path = sys.argv[1]
+    if not validate_orion_file(path):
+        print("Invalid file")
+        sys.exit(1)
+    
+    file = CodeFile()
+    file.readFromFile(path)
+
+    preprocessor = Preprocessor(file)
+    code = preprocessor.getCode()
+
+    parser = CodeParser(code)
+    code = parser.getCode()
+
+    linker = Linker(code)
+    IM = linker.getInstructionMemory()
+    LM = linker.getLabelMap()
+
+    print(IM)
+    print(LM)
 

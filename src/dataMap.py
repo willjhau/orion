@@ -1,10 +1,9 @@
 class DataMap:
     """
-    Stores the data local to a particular proccess
+    Stores the data of a scope in a dictionary
 
     Attributes:
         __data: A dictionary of the data
-        __parent: The parent of the data map
     
     Data Format:
         'type': The type of the data
@@ -15,7 +14,6 @@ class DataMap:
         Constructor for the data map, takes no arguments
         """
         self.__data = {}
-        self.__parent = None
     
     def addData(self, name, dataType, value):
         """
@@ -68,26 +66,3 @@ class DataMap:
             raise ValueError("Value is not valid for data type")
 
         self.__data[name]['value'] = value
-
-    def getParent(self):
-        """
-        Returns the parent of the data map
-        """
-
-        return self.__parent
-
-    def checkParent(self):
-        """
-        Checks if the data map has a parent
-        """
-
-        return self.__parent != None
-    
-    def setParent(self, parent):
-        """
-        parent: DataMap -> None
-
-        Sets the parent of the data map
-        """
-
-        self.__parent = parent

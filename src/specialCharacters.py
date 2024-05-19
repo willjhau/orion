@@ -1,4 +1,4 @@
-import config as cfg
+import src.config as cfg
 
 class SpecialCharacters:
     ESCAPE_CHARACTER = cfg.ESCAPE_CHARACTER

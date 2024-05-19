@@ -1,4 +1,4 @@
-from exceptions import LabelNameError
+from src.exceptions import LabelNameError
 
 class LabelMap:
     """
@@ -28,3 +28,7 @@ class LabelMap:
         Returns the address of a label
         """
         return self.__labels[label]
+
+    def __repr__(self):
+        for label, address in self.__labels.items():
+            print(f"{label}: {address}")

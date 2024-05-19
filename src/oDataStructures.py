@@ -1,5 +1,5 @@
-from exceptions import *
-from oDataTypes import *
+from src.exceptions import *
+from src.oDataTypes import *
 
 class oDataStructure(oData):
     def __init__(self, name: str):
@@ -13,28 +13,28 @@ class oArray(oDataStructure):
 
     typeName = "oArray"
 
-    def __init__(self, data: list):
-        """
-        data: oDataType[] -> None
-        
+    def __init__(self, length: int, dataType: oDataType):
+        """        
+        length: int -> None
+
         Constructor for oArray data structure
     
-        data argument should be a list of objects of a single oDataType.
-
-        Inconsistent data types raise an ArrayTypeMismatchError
+        length must be a positive integer
 
         Attempting to create an array with a non-oDataType raises an IllegalTypeError
         """
-        dType = type(data[0])
-        for element in data:
-            if not (isinstance(element, oData)):
-                raise IllegalTypeError("Only data of an oDataType can be used in an oArray")
-            if not (type(element) == dType):
-                raise ArrayTypeMismatchError("All elements of must be of the same type")
+        if not isinstance(dataType, oDataType):
+            raise IllegalTypeError("oArray objects must contain oData")
+
+        if not isinstance(length, int):
+            raise TypeError("Length must be an integer")
+        
+        if length <= 0:
+            raise ValueError("Length must be a positive integer")
             
-        self.__dataType = dType
-        self.__size = len(data)
-        self.__data = data
+        self.__dataType = oDataType
+        self.__size = length
+        self.__data = [None] * length
 
     def getDataType(self):
         """

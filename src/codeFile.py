@@ -1,5 +1,5 @@
-from Grammar import grammar
-from Grammar import SyntaxTree
+from src.Grammar import grammar
+from src.Grammar import SyntaxTree
 
 class CodeFile:
     def __init__(self):

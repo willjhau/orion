@@ -1,6 +1,6 @@
-from Grammar import grammar
-from Grammar import SyntaxTree
-from codeFile import CodeFile
+from src.Grammar import grammar
+from src.Grammar import SyntaxTree
+from src.codeFile import CodeFile
 
 class CodeParser:
     def __init__(self, code: CodeFile):

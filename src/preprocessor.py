@@ -1,6 +1,6 @@
-from codeFile import CodeFile
-from exceptions import *
-from specialCharacters import SpecialCharacters
+from src.codeFile import CodeFile
+from src.exceptions import *
+from src.specialCharacters import SpecialCharacters
 
 class Preprocessor:
     def __init__(self, code: CodeFile):
