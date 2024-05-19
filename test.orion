@@ -4,6 +4,7 @@ int y = 0;
 int z = x + y;
 print(z);
 char a = 'a';
+midpoint:
 String b = "b";
 boolean c = true;
 float d = 1.0;

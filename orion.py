@@ -1,13 +1,13 @@
 import sys
 import os
-from src.exceptions import AddressError
-from src.instructionMemory import InstructionMemory
-from src.labelMap import LabelMap
-from src.programCounter import ProgramCounter
-from src.codeFile import CodeFile
-from src.preprocessor import Preprocessor
-from src.codeParser import CodeParser
-from src.linker import Linker
+from src.LangData.exceptions import AddressError
+from src.Structures.instructionMemory import InstructionMemory
+from src.Structures.labelMap import LabelMap
+from src.Structures.programCounter import ProgramCounter
+from src.Structures.codeFile import CodeFile
+from src.Processing.preprocessor import Preprocessor
+from src.Processing.codeParser import CodeParser
+from src.Processing.linker import Linker
 
 def validate_filename(filename):
     """
@@ -61,6 +61,6 @@ if __name__ == "__main__":
     IM = linker.getInstructionMemory()
     LM = linker.getLabelMap()
 
-    # IM.printInstructions()
+    IM.printInstructions()
     LM.printLabels()
 

@@ -1,7 +1,7 @@
-from .labelMap import LabelMap
-from .programCounter import ProgramCounter
-from .instructionMemory import InstructionMemory
-from .exceptions import AddressError
+from ..Structures.labelMap import LabelMap
+from ..Structures.programCounter import ProgramCounter
+from ..Structures.instructionMemory import InstructionMemory
+from ..LangData.exceptions import AddressError
 
 class Linker:
     def __init__(self, codeTrees: list, path: str):
@@ -12,9 +12,8 @@ class Linker:
 
     def fillMemory(self):
         i = 0
-        while i < len(self.__codeTrees):
-            tree = self.__codeTrees[i]
-            if tree.children[0].symbol == "Label":
+        for tree in self.__codeTrees:
+            if tree.children[0].symbol.name == "Label":
                 self.__labelMap.addLabel(tree.children[0].matched_string, i)
             else:
                 self.__instructionMemory.addInstruction(tree)

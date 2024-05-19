@@ -1,5 +1,5 @@
 from .programCounter import ProgramCounter
-from .exceptions import AddressError
+from ..LangData.exceptions import AddressError
 
 class InstructionMemory:
     """

@@ -1,4 +1,4 @@
-from .exceptions import LabelNameError
+from ..LangData.exceptions import LabelNameError
 
 class LabelMap:
     """

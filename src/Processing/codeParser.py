@@ -1,5 +1,5 @@
-from . import grammar as grammar
-from .codeFile import CodeFile
+from ..Grammar import grammar as grammar
+from ..Structures.codeFile import CodeFile
 
 class CodeParser:
     def __init__(self, code: CodeFile):
@@ -34,7 +34,7 @@ class CodeParser:
 
         Parses a line of code
         """
-        rules = grammar.readGrammar('src/grammar.txt', line)
+        rules = grammar.readGrammar('src/Grammar/grammar.txt', line)
         tree = grammar.parse(line, rules[0].left, rules, False).tidyTree()
 
         

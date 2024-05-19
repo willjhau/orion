@@ -1,5 +1,5 @@
 import sys
-from .syntaxTree import SyntaxTreeNode
+from ..Structures.syntaxTree import SyntaxTreeNode
 # sys.stdout = open('output.txt', 'w')
 
 def generateIdentifiers(string):
