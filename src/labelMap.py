@@ -1,4 +1,4 @@
-from src.exceptions import LabelNameError
+from .exceptions import LabelNameError
 
 class LabelMap:
     """
@@ -29,6 +29,16 @@ class LabelMap:
         """
         return self.__labels[label]
 
+    def printLabels(self):
+        """
+        Prints all the labels
+        """
+        for label, address in self.__labels.items():
+            print(f"{label}: {address}")
+
     def __repr__(self):
         for label, address in self.__labels.items():
             print(f"{label}: {address}")
+
+    def __str__(self):
+        return self.__labels

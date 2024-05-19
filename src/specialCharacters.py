@@ -1,4 +1,4 @@
-import src.config as cfg
+from . import config as cfg
 
 class SpecialCharacters:
     ESCAPE_CHARACTER = cfg.ESCAPE_CHARACTER
@@ -12,3 +12,4 @@ class SpecialCharacters:
     ENDLINE_MARKER = cfg.ENDLINE_MARKER
     ARGUMENT_SEPARATOR = cfg.ARGUMENT_SEPARATOR
     DECLARE_NEGATIVE_NUMBER_OPERATOR = cfg.DECLARE_NEGATIVE_NUMBER_OPERATOR
+    ALLOWED_CHARACTERS = cfg.ALLOWED_CHARACTERS

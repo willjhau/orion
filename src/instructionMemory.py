@@ -1,5 +1,5 @@
-from src.programCounter import ProgramCounter
-from src.exceptions import AddressError
+from .programCounter import ProgramCounter
+from .exceptions import AddressError
 
 class InstructionMemory:
     """
@@ -44,8 +44,18 @@ class InstructionMemory:
             raise AddressError("Jump address out of range")
 
         self.__pc.jump(address)
+    
+    def printInstructions(self):
+        """
+        Prints all the instructions
+        """
+        for i, instruction in enumerate(self.__instructions):
+            print(f"{i}: {instruction}")
 
     def __repr__(self):
         for i, instruction in enumerate(self.__instructions):
             print(f"{i}: {instruction}")
+
+    def __str__(self):
+        return self.__instructions
 

@@ -1,0 +1,10 @@
+main:
+int x = 0;
+int y = 0;
+int z = x + y;
+print(z);
+char a = 'a';
+String b = "b";
+boolean c = true;
+float d = 1.0;
+func(a<b);

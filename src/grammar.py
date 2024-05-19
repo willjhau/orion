@@ -1,6 +1,6 @@
 import sys
-from src.Grammar.SyntaxTree import SyntaxTreeNode
-sys.stdout = open('output.txt', 'w')
+from .syntaxTree import SyntaxTreeNode
+# sys.stdout = open('output.txt', 'w')
 
 def generateIdentifiers(string):
     identifiers = []
@@ -172,7 +172,7 @@ class Symbol:
         self.terminal: bool = terminal
 
     def getRules(self, rules):
-        return [rule for rule in RULES if rule.left == self]
+        return [rule for rule in rules if rule.left == self]
 
     def isTerminal(self):
         return self.terminal

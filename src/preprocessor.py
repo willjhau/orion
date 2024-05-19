@@ -1,6 +1,6 @@
-from src.codeFile import CodeFile
-from src.exceptions import *
-from src.specialCharacters import SpecialCharacters
+from .codeFile import CodeFile
+from .exceptions import *
+from .specialCharacters import SpecialCharacters
 
 class Preprocessor:
     def __init__(self, code: CodeFile):
@@ -34,7 +34,7 @@ class Preprocessor:
 
         for char, isString in stringCharacterMap:
             if not isString and char not in SpecialCharacters.ALLOWED_CHARACTERS:
-                raise SyntaxError("Illegal character found in line: " + line)
+                raise SyntaxError("Illegal character found in line: " + line + str(ord(char)) + " (" + char + ")")
             
         return True
 
@@ -100,7 +100,9 @@ class Preprocessor:
         """
         line: str -> str
 
-        Reads a line of orion code and removes whitespace. Returns the same line without whitespace
+        Reads a line of orion code and removes whitespace. Returns the same line where all 
+        trailing and leading whitespace has been removed. Also all whitespace between characters
+        which are not part of a string are compressed to a single space. Line breaks are also removed.
         """
 
         strippedLine = ""
@@ -108,11 +110,16 @@ class Preprocessor:
         stringCharacterMap = self.__getStringCharacterMap(line)
 
         for char, isString in stringCharacterMap:
-            if char == " " and (not isString):
-                continue
-            
-            strippedLine += char
-
+            if char == " " and not isString:
+                if strippedLine == "":
+                    continue
+                if strippedLine[-1] == " ":
+                    continue
+                strippedLine += " "
+            else:
+                strippedLine += char
+        if strippedLine.endswith("\n"):
+            strippedLine = strippedLine[:-1]
         return strippedLine
     
 
@@ -124,14 +131,20 @@ class Preprocessor:
         """
 
         for line in self.__code.getLines():
-            if not self.__checkIllegalCharacters(line):
+            lineNoComment = self.__removeComment(line)
+
+            if not self.__checkIllegalCharacters(lineNoComment):
                 continue
     
             if line == "":
                 continue
-
-            lineNoComment = self.__removeComment(line)
+            
             lineNoWhitespace = self.__removeWhitespace(lineNoComment)
+
+            if lineNoWhitespace == "":
+                continue
+
+            self.__processedCode.append(lineNoWhitespace)
         
     def getProcessedCode(self):
         """

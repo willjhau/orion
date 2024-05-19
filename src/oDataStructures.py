@@ -1,5 +1,5 @@
-from src.exceptions import *
-from src.oDataTypes import *
+from .exceptions import *
+from .oDataTypes import *
 
 class oDataStructure(oData):
     def __init__(self, name: str):

@@ -1,5 +1,5 @@
-import src.grammar as grammar
-from src.codeFile import CodeFile
+from . import grammar as grammar
+from .codeFile import CodeFile
 
 class CodeParser:
     def __init__(self, code: CodeFile):
@@ -11,13 +11,15 @@ class CodeParser:
 
         self.__code = code
         self.__parsedCode = []
-        for line in self.__code.code:
+        for line in code.getCode():
             tree = self.__parseLine(line)
+            if tree == {}:
+                raise SyntaxError("Failed to parse line: " + line)
             self.__parsedCode.append(tree)
         
         self.__code.importSyntaxTrees(self.__parsedCode)
 
-    def getCode(self):
+    def getCodeFile(self):
         """
         None -> CodeFile
 
@@ -32,8 +34,9 @@ class CodeParser:
 
         Parses a line of code
         """
-        rules = grammar.readGrammar('src/Grammar/grammar.txt', line)
-        tree = grammar.parse(line, rules[0].left, rules, False)
+        rules = grammar.readGrammar('src/grammar.txt', line)
+        tree = grammar.parse(line, rules[0].left, rules, False).tidyTree()
+
         
         if tree is None:
             raise SyntaxError("Failed to parse line: " + line)

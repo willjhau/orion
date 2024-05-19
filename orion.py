@@ -7,7 +7,7 @@ from src.programCounter import ProgramCounter
 from src.codeFile import CodeFile
 from src.preprocessor import Preprocessor
 from src.codeParser import CodeParser
-# from src.linker import Linker
+from src.linker import Linker
 
 def validate_filename(filename):
     """
@@ -37,9 +37,7 @@ def validate_orion_file(path):
         return True
     return False
 
-print(1)
 if __name__ == "__main__":
-    print(0)
     if len(sys.argv) != 2:
         print("Usage: python3 orion.py <filename>")
         sys.exit(1)
@@ -56,12 +54,13 @@ if __name__ == "__main__":
     code = preprocessor.getCode()
 
     parser = CodeParser(code)
-    code = parser.getCode()
+    code = parser.getCodeFile()
 
-    linker = Linker(code)
+    linker = Linker(code.getCodeTrees(), path)
+
     IM = linker.getInstructionMemory()
     LM = linker.getLabelMap()
 
-    print(IM)
-    print(LM)
+    # IM.printInstructions()
+    LM.printLabels()
 

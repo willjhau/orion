@@ -1,12 +1,12 @@
-from src.labelMap import LabelMap
-from src.programCounter import ProgramCounter
-from src.instructionMemory import InstructionMemory
-from src.exceptions import AddressError
+from .labelMap import LabelMap
+from .programCounter import ProgramCounter
+from .instructionMemory import InstructionMemory
+from .exceptions import AddressError
 
 class Linker:
-    def __init__(self, codeTrees: list):
+    def __init__(self, codeTrees: list, path: str):
         self.__labelMap = LabelMap()
-        self.__instructionMemory = InstructionMemory()
+        self.__instructionMemory = InstructionMemory(path)
         self.__codeTrees = codeTrees
         self.fillMemory()
 

@@ -28,7 +28,7 @@ class CodeFile:
         Imports the syntax trees
         """
 
-        if len(self.getCodeTrees()) != len(self.getLines()):
+        if len(codeTrees) != len(self.getLines()):
             raise SyntaxError("Code and syntax trees are not the same length")
     
         self.__codeTrees = codeTrees
@@ -67,6 +67,15 @@ class CodeFile:
         """
 
         return self.__code[lineNumber]
+    
+    def getCode(self):
+        """
+        None -> list
+
+        Returns the code as a list
+        """
+
+        return self.__code
     
     def getLineCount(self):
         """
