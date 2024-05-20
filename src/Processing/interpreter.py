@@ -1,6 +1,6 @@
 from FunctionCall import executeFunction
-from Declaration import Declaration
-from Assignment import Assignment
+from Declaration import executeDeclaration
+from Assignment import executeAssignment
 from Expression import Expression
 
 class Context:
@@ -38,12 +38,10 @@ class Interpreter:
         
 
         elif instruction.children[0].symbol.name == "Declaration":
-            # TODO
-            pass
+            return executeDeclaration(self.context, instruction.children[0])
 
         elif instruction.children[0].symbol.name == "Assignment":
-            # TODO
-            pass
+            return executeAssignment(self.context, instruction.children[0])
 
         elif instruction.children[0].symbol.name == "Expression":
             # TODO

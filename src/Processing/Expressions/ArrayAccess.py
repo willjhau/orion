@@ -13,4 +13,4 @@ def handleArrayAccess(ctx, arrayAccessNode):
     if index >= array.getSize():
         raise Exception("Array index out of bounds")
     
-    return array[index]
+    return array.getElement(index)

@@ -57,7 +57,7 @@ class SyntaxTreeNode:
         newChildren = []
         for child in self.children:
             # print(child.symbol.name)
-            if child.symbol.name in ":; ":
+            if child.symbol.name in ":; =":
                 continue
             if child.symbol.name == "MaybeSpace":
                 continue
