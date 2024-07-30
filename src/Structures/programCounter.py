@@ -12,7 +12,7 @@ class ProgramCounter:
         """
         Increments the program counter by 1
         """
-        self__pc += 1
+        self.__pc += 1
     
     def get(self):
         """

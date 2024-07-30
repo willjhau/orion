@@ -1,2 +1,2 @@
 def evaluate(ctx, StringLiteralNode):
-    pass #TODO
+    return StringLiteralNode.matched_string[1:-1]

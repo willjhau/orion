@@ -8,6 +8,7 @@ from src.Structures.codeFile import CodeFile
 from src.Processing.preprocessor import Preprocessor
 from src.Processing.codeParser import CodeParser
 from src.Processing.linker import Linker
+from src.Processing.interpreter import Interpreter
 
 def validate_filename(filename):
     """
@@ -61,6 +62,9 @@ if __name__ == "__main__":
     IM = linker.getInstructionMemory()
     LM = linker.getLabelMap()
 
-    IM.printInstructions()
-    LM.printLabels()
+    # IM.printInstructions()
+    # LM.printLabels()
+
+    interpreter = Interpreter(IM, LM)
+    interpreter.run()
 

@@ -1,33 +1,38 @@
-from .Functions import print
-from .Functions import takeInput
-from .Functions import goToLabel
-from .Functions import strToInt
-from .Functions import intToStr
-from .Functions import strToFloat
-from .Functions import floatToStr
-from .Functions import boolToStr
-from .Functions import charToInt
-from .Functions import intToChar
-from .Functions import jumpIf
-from .Functions import boolNot
-from .Functions import boolAnd
-from .Functions import boolOr
-from .Functions import boolXor
+from .Functions import Print
+from .Functions import TakeInput
+from .Functions import GoToLabel
+from .Functions import StrToInt
+from .Functions import IntToStr
+from .Functions import StrToFloat
+from .Functions import FloatToStr
+from .Functions import BoolToStr
+from .Functions import CharToInt
+from .Functions import IntToChar
+from .Functions import JumpIf
+from .Functions import BoolNot
+from .Functions import BoolAnd
+from .Functions import BoolOr
+from .Functions import BoolXor
 
 def argTreeToArgList(functionCallNode):
-    print(functionCallNode.children)
+    # Check if the function call has any arguments
     if len(functionCallNode.children) == 0:
         return []
+    
+    # If the function call has only one argument
     if len(functionCallNode.children) == 1:
         return [functionCallNode.children[0]]
-    return [functionCallNode.children[0]] + argTreeToArgList(functionCallNode.children[1])
+    
+    # If the function call has more than one argument
+    return [functionCallNode.children[0]] + argTreeToArgList(functionCallNode.children[2])
+
 
 def executeFunction(ctx, functionCallNode):
-    if functionCallNode.children[0].symbol.name == "print":
-        return print.execute(ctx, argTreeToArgList(functionCallNode.children[2]))
+    if functionCallNode.children[0].matched_string == "print":
+        return Print.execute(ctx, argTreeToArgList(functionCallNode.children[2]))
 
-    if functionCallNode.children[0].symbol.name == "takeInput":
-        return takeInput.execute(ctx, argTreeToArgList(functionCallNode.children[2]))
+    if functionCallNode.children[0].matched_string == "takeInput":
+        return TakeInput.execute(ctx, argTreeToArgList(functionCallNode.children[2]))
     
-    if functionCallNode.children[0].symbol.name == "goToLabel":
-        return goToLabel.execute(ctx, argTreeToArgList(functionCallNode.children[2]))
+    if functionCallNode.children[0].matched_string == "goToLabel":
+        return GoToLabel.execute(ctx, argTreeToArgList(functionCallNode.children[2]))

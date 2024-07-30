@@ -1,7 +1,7 @@
-from FunctionCall import executeFunction
-from Declaration import executeDeclaration
-from Assignment import executeAssignment
-from Expression import Expression
+from .FunctionCall import executeFunction
+from .Declaration import executeDeclaration
+from .Assignment import executeAssignment
+# from .Expression import Expression
 
 class Context:
     def __init__(self, instructionMemory, labelMap):
@@ -22,6 +22,10 @@ class Interpreter:
     def __init__(self, instructionMemory, labelMap):
         self.context = Context(instructionMemory, labelMap)
 
+    def run(self):
+        while True:
+            self.executeNext()
+
     def argTreeToArgList(self, functionCallNode):
         print(functionCallNode.children)
         if len(functionCallNode.children) == 0:
@@ -31,12 +35,11 @@ class Interpreter:
         return [functionCallNode.children[0]] + self.argTreeToArgList(functionCallNode.children[1])
 
     def executeNext(self):
-        instruction = self.__instructionMemory.getCurrentInstruction()
+        instruction = self.context.getInstructionMemory().getCurrentInstruction()
+        self.context.getInstructionMemory().incrementCounter()
 
         if instruction.children[0].symbol.name == "FunctionCall":
-            return executeFunction(self.context, instruction.children[0].symbol.name, self.argTreeToArgList(instruction.children[0]))
-        
-
+            executeFunction(self.context, instruction.children[0])
         elif instruction.children[0].symbol.name == "Declaration":
             return executeDeclaration(self.context, instruction.children[0])
 

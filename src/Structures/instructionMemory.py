@@ -24,8 +24,13 @@ class InstructionMemory:
     def getCurrentInstruction(self):
         """
         Returns the instruction at the current program counter
+
+        Exits the program if the program counter is out of range
         """
-        return self.__instructions[self.__pc]
+        if self.__pc.get() >= len(self.__instructions):
+            exit()
+
+        return self.__instructions[self.__pc.get()]
     
     def incrementCounter(self):
         """

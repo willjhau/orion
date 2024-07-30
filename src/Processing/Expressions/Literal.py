@@ -5,19 +5,18 @@ from . import FloatLiteral
 from . import BooleanLiteral
 
 def evaluateLiteral(ctx, literalNode):
-    lit = literalNode.matched_string
-    if lit.children[0].symbol.name == "StringLiteral":
+    if literalNode.children[0].symbol.name == "StringLiteral":
         return StringLiteral.evaluate(ctx, literalNode)
     
-    if lit.children[0].symbol.name == "CharacterLiteral":
+    if literalNode.children[0].symbol.name == "CharacterLiteral":
         return CharacterLiteral.evaluate(ctx, literalNode)
     
-    if lit.children[0].symbol.name == "IntegerLiteral":
+    if literalNode.children[0].symbol.name == "IntegerLiteral":
         return IntegerLiteral.evaluate(ctx, literalNode)
     
-    if lit.children[0].symbol.name == "FloatLiteral":
+    if literalNode.children[0].symbol.name == "FloatLiteral":
         return FloatLiteral.evaluate(ctx, literalNode)
     
-    if lit.children[0].symbol.name == "BooleanLiteral":
+    if literalNode.children[0].symbol.name == "BooleanLiteral":
         return BooleanLiteral.evaluate(ctx, literalNode)
     
