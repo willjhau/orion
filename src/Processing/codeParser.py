@@ -35,7 +35,10 @@ class CodeParser:
         Parses a line of code
         """
         rules = grammar.readGrammar('src/Grammar/grammar.txt', line)
-        tree = grammar.parse(line, rules[0].left, rules, False).tidyTree()
+        tree = grammar.parse(line, rules[0].left, rules, False)
+        if tree == {}:
+            raise SyntaxError(f"Syntax error parsing line: {line}")
+        tree = tree.tidyTree()
 
         
         if tree is None:

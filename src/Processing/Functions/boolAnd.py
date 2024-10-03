@@ -1,13 +1,18 @@
 from ..Expression import evaluateExpression
-def execute(ctx, *args):
-    if len(args) != 2:
-        raise Exception("Expected 2 arguments, got " + str(len(args)))
+from ...LangData.exceptions import ArgumentError
+from ...LangData.oDataTypes import oBool
 
-    arg1 = evaluateExpression(ctx, arg1)
-    arg2 = evaluateExpression(ctx, arg2)
+def execute(ctx, args):
+    if len(args) == 0:
+        raise ArgumentError("Expected at least one argument, got 0")
 
-    if arg1 is True and arg2 is True:
-        return True
+    processedArgs = [evaluateExpression(ctx, arg).getValue() for arg in args]
+    if not all([isinstance(arg, oBool) for arg in processedArgs]):
+        raise ValueError("and must take boolean values as inputs")
     
-    return False
+    truth = [arg is True for arg in processedArgs]
+    if all(truth):
+        return oBool(True)
+    
+    return oBool(False)
 

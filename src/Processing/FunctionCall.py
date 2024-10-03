@@ -31,8 +31,29 @@ def executeFunction(ctx, functionCallNode):
     if functionCallNode.children[0].matched_string == "print":
         return Print.execute(ctx, argTreeToArgList(functionCallNode.children[2]))
 
-    if functionCallNode.children[0].matched_string == "takeInput":
+    elif functionCallNode.children[0].matched_string == "takeInput":
         return TakeInput.execute(ctx, argTreeToArgList(functionCallNode.children[2]))
     
-    if functionCallNode.children[0].matched_string == "goToLabel":
+    elif functionCallNode.children[0].matched_string == "goToLabel":
         return GoToLabel.execute(ctx, argTreeToArgList(functionCallNode.children[2]))
+    
+    elif functionCallNode.children[0].matched_string == "and":
+        return BoolAnd.execute(ctx, argTreeToArgList(functionCallNode.children[2]))
+    
+    elif functionCallNode.children[0].matched_string == "not":
+        return BoolNot.execute(ctx, argTreeToArgList(functionCallNode.children[2]))
+    
+    elif functionCallNode.children[0].matched_string == "or":
+        return BoolOr.execute(ctx, argTreeToArgList(functionCallNode.children[2]))
+    
+    elif functionCallNode.children[0].matched_string == "boolToString":
+        return BoolToStr.execute(ctx, argTreeToArgList(functionCallNode.children[2]))
+    
+    elif functionCallNode.children[0].matched_string == "xor":
+        return BoolXor.execute(ctx, argTreeToArgList(functionCallNode.children[2]))
+    
+    # elif functionCallNode.children[0].matched_string == "not":
+    #     return BoolNot.execute(ctx, argTreeToArgList(functionCallNode.children[2]))
+    
+    else:
+        raise NameError(f"Unknown function name: {functionCallNode.children[0].matched_string}")

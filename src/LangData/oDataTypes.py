@@ -8,7 +8,8 @@ class oDataType(oData):
     Generic data type class
     """
 
-    def __init__(self, name):
+    def __init__(self, value):
+        self.__value = value
         pass
 
     @staticmethod
@@ -35,6 +36,9 @@ class oDataType(oData):
 
         Setter for the value of an oDataType object
         """
+        if isinstance(value, oDataType):
+            self.__value = value.getValue()
+
         self.__value = value
 
 class oInt(oDataType):
@@ -49,7 +53,10 @@ class oInt(oDataType):
 
         oInt constructor
         """
-        self.__value = value
+        if oInt.isValid(value):
+            super().__init__(value)
+        else:
+            raise Exception("Invalid value for int")
 
     @staticmethod
     def isValid(value):
@@ -58,6 +65,9 @@ class oInt(oDataType):
 
         Returns whether or not the value is an integer
         """
+        if isinstance(value, oDataType):
+            value = value.getValue()
+
         try:
             if int(value) == value:
                 return True
@@ -73,8 +83,10 @@ class oFloat(oDataType):
     typeName = "oFloat"
 
     def __init__(self, value: float):
-        self.value = value
-
+        if oFloat.isValid(value):
+            super().__init__(value)
+        else:
+            raise Exception("Invalid value for float")
 
     @staticmethod
     def isValid(value):
@@ -83,7 +95,9 @@ class oFloat(oDataType):
 
         Returns whether or not the value is a float
         """
-
+        if isinstance(value, oDataType):
+            value = value.getValue()
+            
         try:
             float(value)
         except ValueError:
@@ -100,8 +114,10 @@ class oString(oDataType):
     typeName = "oString"
 
     def __init__(self, s: str):
-        self.value = s
-
+        if oString.isValid(s):
+            super().__init__(s)
+        else:
+            raise Exception("Invalid value for string")
 
     @staticmethod
     def isValid(value):
@@ -110,6 +126,9 @@ class oString(oDataType):
 
         Returns whether or not the value is a string
         """
+        if isinstance(value, oDataType):
+            value = value.getValue()
+            
         if type(value) == str:
             return True
         return False
@@ -127,15 +146,19 @@ class oBool(oDataType):
     typeName = "oBool"
 
     def __init__(self, value:bool):
-        self.value = value
+        super().__init__(value)
 
     @staticmethod
-    def isValid(value):
+    def isValid(valueRaw):
         """
         value: any -> bool
 
         Returns whether or not the value is a boolean
         """
+        if isinstance(valueRaw, oDataType):
+            value = valueRaw.getValue()
+        if isinstance(valueRaw, oString):
+            return False
         if type(value) == bool:
             return True
         elif value == "true" or value == "false":
@@ -150,7 +173,10 @@ class oChar(oDataType):
     typeName = "oChar"
 
     def __init__(self, value):
-        self.value = value
+        if oChar.isValid(value):
+            super().__init__(value)
+        else:
+            raise Exception("Invalid value for char")
 
     @staticmethod
     def isValid(value):
@@ -159,6 +185,9 @@ class oChar(oDataType):
 
         Returns whether or not the value is a character
         """
+        if isinstance(value, oDataType):
+            value = value.getValue()
+            
         if type(value) == str and len(value) == 1:
             return True
         return False

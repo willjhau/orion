@@ -1,13 +1,14 @@
 from .FunctionCall import executeFunction
 from .Declaration import executeDeclaration
 from .Assignment import executeAssignment
+from ..Structures import dataMap
 # from .Expression import Expression
 
 class Context:
     def __init__(self, instructionMemory, labelMap):
         self.__instructionMemory = instructionMemory
         self.__labelMap = labelMap
-        self.__dataMap = {}
+        self.__dataMap = dataMap.DataMap()
 
     def getInstructionMemory(self):
         return self.__instructionMemory
@@ -27,7 +28,6 @@ class Interpreter:
             self.executeNext()
 
     def argTreeToArgList(self, functionCallNode):
-        print(functionCallNode.children)
         if len(functionCallNode.children) == 0:
             return []
         if len(functionCallNode.children) == 1:

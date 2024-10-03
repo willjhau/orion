@@ -1,2 +1,4 @@
+from ...LangData.oDataTypes import oFloat
+
 def evaluate(ctx, FloatLiteralNode):
-    return float(FloatLiteralNode.matched_string)
+    return oFloat(float(FloatLiteralNode.matched_string))

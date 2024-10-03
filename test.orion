@@ -1,1 +1,4 @@
-print("hello", "world", "!", 123,'h',true,false);
+main:
+boolean a = not(true);
+boolean b = not(a);
+print(xor(a,boolToString(b)));

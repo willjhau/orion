@@ -21,3 +21,6 @@ class IllegalCharacterError(Exception):
 
 class IllegalNumberError(Exception):
     pass
+
+class ArgumentError(Exception):
+    pass

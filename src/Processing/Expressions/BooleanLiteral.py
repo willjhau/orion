@@ -1,2 +1,7 @@
+from ...LangData.oDataTypes import oBool
+
 def evaluate(ctx, BooleanLiteralNode):
-    return BooleanLiteralNode.matched_string == 'true'
+    if BooleanLiteralNode.matched_string == 'true':
+        return oBool(True)
+    else:
+        return oBool(False)

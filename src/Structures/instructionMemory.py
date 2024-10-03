@@ -29,7 +29,6 @@ class InstructionMemory:
         """
         if self.__pc.get() >= len(self.__instructions):
             exit()
-
         return self.__instructions[self.__pc.get()]
     
     def incrementCounter(self):
@@ -44,7 +43,8 @@ class InstructionMemory:
 
         Sets the program counter to a specific address
         """
-        if address < len(self.__instructions):
+        if address >= len(self.__instructions):
+            print(address)
             # Raise an AddressError
             raise AddressError("Jump address out of range")
 

@@ -14,6 +14,12 @@ class DataMap:
         Constructor for the data map, takes no arguments
         """
         self.__data = {}
+
+    def checkIfDataExists(self, name):
+        if name in self.__data:
+            return True
+        else:
+            return False
     
     def addData(self, name, dataType, value):
         """

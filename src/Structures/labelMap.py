@@ -27,6 +27,9 @@ class LabelMap:
 
         Returns the address of a label
         """
+        if label not in self.__labels:
+            raise NameError("Label is undefined")
+        
         return self.__labels[label]
 
     def printLabels(self):

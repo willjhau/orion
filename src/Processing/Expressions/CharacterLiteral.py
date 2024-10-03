@@ -1,2 +1,4 @@
+from ...LangData.oDataTypes import oChar
+
 def evaluate(ctx, CharacterLiteralNode):
-    return CharacterLiteralNode.matched_string[1:-1]
+    return oChar(CharacterLiteralNode.matched_string[1:-1])

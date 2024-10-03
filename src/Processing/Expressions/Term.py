@@ -1,4 +1,5 @@
 from . import Factor
+from ...LangData.oDataTypes import oFloat
 
 def evaluateTerm(ctx, term):
     if len(term.children) == 1:
@@ -7,6 +8,6 @@ def evaluateTerm(ctx, term):
         left = Factor.evaluateFactor(ctx, term.children[0])
         right = evaluateTerm(ctx, term.children[2])
         if term.children[1].symbol.name == '*':
-            return left * right
+            return oFloat(left * right)
         else:
-            return left / right
+            return oFloat(left / right)
