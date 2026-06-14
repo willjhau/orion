@@ -1,3 +1,4 @@
+from ..LangData.oDataStructures import oArray
 from .Functions import Print
 from .Functions import TakeInput
 from .Functions import GoToLabel
@@ -52,8 +53,36 @@ def executeFunction(ctx, functionCallNode):
     elif functionCallNode.children[0].matched_string == "xor":
         return BoolXor.execute(ctx, argTreeToArgList(functionCallNode.children[2]))
     
-    # elif functionCallNode.children[0].matched_string == "not":
-    #     return BoolNot.execute(ctx, argTreeToArgList(functionCallNode.children[2]))
+    elif functionCallNode.children[0].matched_string == "charToInt":
+        return CharToInt.execute(ctx, argTreeToArgList(functionCallNode.children[2]))
     
+    elif functionCallNode.children[0].matched_string == "floatToString":
+        return FloatToStr.execute(ctx, argTreeToArgList(functionCallNode.children[2]))
+    
+    elif functionCallNode.children[0].matched_string == "intToChar":
+        return IntToChar.execute(ctx, argTreeToArgList(functionCallNode.children[2]))
+    
+    elif functionCallNode.children[0].matched_string == "intToString":
+        return IntToStr.execute(ctx, argTreeToArgList(functionCallNode.children[2]))
+    
+    elif functionCallNode.children[0].matched_string == "jumpIf":
+        return JumpIf.execute(ctx, argTreeToArgList(functionCallNode.children[2]))
+    
+    elif functionCallNode.children[0].matched_string == "stringToFloat":
+        return StrToFloat.execute(ctx, argTreeToArgList(functionCallNode.children[2]))
+    
+    elif functionCallNode.children[0].matched_string == "stringToInt":
+        return StrToInt.execute(ctx, argTreeToArgList(functionCallNode.children[2]))
+    
+    elif functionCallNode.children[0].matched_string == "newArray":
+        args = argTreeToArgList(functionCallNode.children[2])
+        if len(args) != 1:
+            raise TypeError("newArray() expects exactly 1 argument: newArray(size)")
+        from .Expression import evaluateExpression
+        size_val = evaluateExpression(ctx, args[0]).getValue()
+        if not isinstance(size_val, int):
+            raise TypeError(f"newArray() size must be an integer, got {type(size_val)}")
+        return oArray(size_val)
+
     else:
         raise NameError(f"Unknown function name: {functionCallNode.children[0].matched_string}")

@@ -1,110 +1,61 @@
-from .exceptions import *
-from .oDataTypes import *
+from .exceptions import IndexOutOfBoundsError, IllegalTypeError
+from .oDataTypes import oData, oDataType
+
 
 class oDataStructure(oData):
-    def __init__(self, name: str):
+    def __init__(self):
         pass
 
 
 class oArray(oDataStructure):
     """
-    Data structure class for Orion arrays
+    A dynamically-typed fixed-size array for the Orion language.
+
+    Elements may be any oDataType instance (or None for uninitialized slots).
+    The array size is fixed at creation time.
     """
 
     typeName = "oArray"
 
-    def __init__(self, length: int, dataType: oDataType):
-        """        
-        length: int -> None
+    def __init__(self, size: int):
+        if not isinstance(size, int) or size <= 0:
+            raise ValueError("Array size must be a positive integer")
+        self.__size = size
+        self.__data = [None] * size
 
-        Constructor for oArray data structure
-    
-        length must be a positive integer
+    # ── Static helpers expected by DataMap ────────────────────────
 
-        Attempting to create an array with a non-oDataType raises an IllegalTypeError
-        """
-        if not isinstance(dataType, oDataType):
-            raise IllegalTypeError("oArray objects must contain oData")
+    @staticmethod
+    def isValid(value):
+        """Accept oArray instances and None (uninitialized)."""
+        return isinstance(value, oArray) or value is None
 
-        if not isinstance(length, int):
-            raise TypeError("Length must be an integer")
-        
-        if length <= 0:
-            raise ValueError("Length must be a positive integer")
-            
-        self.__dataType = oDataType
-        self.__size = length
-        self.__data = [None] * length
+    # ── Accessors ─────────────────────────────────────────────────
 
-    def getDataType(self):
-        """
-        None -> oDataType
-
-        Getter for the type of the oArray
-
-        Returns the specific oDataType class
-        """
-        return self.__dataType
-    
     def getSize(self):
-        """
-        None -> int
-
-        Getter for the size of the array
-
-        returns the size of the array
-        """
         return self.__size
-    
-    def getData(self):
-        """
-        None -> oDataType[]
 
-        Getter for the entire array data
-
-        returns the data in a python list of oDataType instances
-        """
-        return self.__data
-    
     def getElement(self, index: int):
-        """
-        index: int -> oData
-
-        Returns the oDataType object at index [index] in the oArray
-
-        Attempting to retrieve the index greater than or equal to the size of the array raises an IndexOutOfBoundsError
-
-        Attempting to pass a type other than int as an index raises a TypeError
-        """
         if not isinstance(index, int):
-            raise TypeError(f"Parameter index: {index} must be an integer")
-        
-        if index >= self.getSize():
-            raise IndexOutOfBoundsError(f"Parameter index: {index} out of bounds for array of size {self.getSize()}")
-        
-        if not(-self.getSize() > self.getSize()):
-            raise IndexOutOfBoundsError(f"Parameter index: {index} out of bounds for array of size {self.getSize()}")
-        
+            raise TypeError(f"Array index must be an integer, got {type(index)}")
+        if not (0 <= index < self.__size):
+            raise IndexOutOfBoundsError(
+                f"Index {index} out of bounds for array of size {self.__size}")
         return self.__data[index]
-    
-    def setElement(self, index: int, value: oData):
-        """
-        index, value: int -> oData -> None
 
-        Sets the data at index [index] to the value [value]
-
-        Attempting to set a value of an oDataType different to the defined one raises an ArrayTypeMismatchError
-        """
+    def setElement(self, index: int, value):
         if not isinstance(index, int):
-            raise TypeError("Array index must be an integer")
-
-        if not (0 <= index < self.getSize()):
-            raise IndexOutOfBoundsError(f"Parameter index: {index} out of bounds for array of size {self.getSize()}")
-
-        if not isinstance(value, oData):
-            raise IllegalTypeError("oArray objects must contain oData")
-        
-        if not isinstance(value, self.getDataType()):
-            raise ArrayTypeMismatchError(f"Cannot add value: {value} to oArray of type: {self.getDataType.typeName}")
-        
+            raise TypeError(f"Array index must be an integer, got {type(index)}")
+        if not (0 <= index < self.__size):
+            raise IndexOutOfBoundsError(
+                f"Index {index} out of bounds for array of size {self.__size}")
+        if value is not None and not isinstance(value, oDataType):
+            raise IllegalTypeError(
+                f"Array elements must be oDataType instances, got {type(value)}")
         self.__data[index] = value
+
+    def getData(self):
+        return list(self.__data)
+
+    def __repr__(self):
+        return f'oArray(size={self.__size}, data={self.__data})'

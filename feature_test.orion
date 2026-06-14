@@ -1,0 +1,172 @@
+# Comprehensive Orion language feature test
+# Exercises every primitive type, operator, control-flow construct,
+# array operation, and built-in function.
+
+start:
+    # ── Primitive declarations ────────────────────────────────
+    int     a       = 7;
+    int     b       = 3;
+    float   pi      = 3.14;
+    float   e       = 2.71;
+    String  greet   = "hello";
+    String  name    = "world";
+    char    letter  = 'Q';
+    boolean flagT   = true;
+    boolean flagF   = false;
+    int     uninit;             # declaration without initializer
+
+    print("=== Primitive declarations ===");
+    print(a);
+    print(b);
+    print(pi);
+    print(e);
+    print(greet);
+    print(letter);
+    print(flagT);
+    print(flagF);
+
+    # ── Arithmetic ────────────────────────────────────────────
+    print("=== Arithmetic ===");
+    int sum     = a + b;            # 10
+    int diff    = a - b;            # 4
+    int prod    = a * b;            # 21
+    float quot  = 10.0 / 4.0;       # 2.5
+    int neg     = -a;               # -7 (unary minus on identifier)
+    int paren   = (a + b) * (a - b); # 40
+    print(sum);
+    print(diff);
+    print(prod);
+    print(quot);
+    print(neg);
+    print(paren);
+
+    # Mixed-type arithmetic and string concatenation
+    float mix       = pi + 1.0;
+    String combined = greet + " " + name;
+    String charcat  = "letter=" + letter;
+    print(mix);
+    print(combined);
+    print(charcat);
+
+    # ── Relational operators ──────────────────────────────────
+    print("=== Relational ===");
+    print(a == b);   # false
+    print(a != b);   # true
+    print(a >  b);   # true
+    print(a <  b);   # false
+    print(a >= b);   # true
+    print(a <= b);   # false
+
+    # ── Boolean built-ins ─────────────────────────────────────
+    print("=== Boolean operators ===");
+    print(and(flagT, flagF)); # false
+    print(or(flagT, flagF));  # true
+    print(not(flagF));        # true
+    print(xor(flagT, flagF)); # true
+    print(xor(flagT, flagT)); # false
+
+    # ── Type conversions ──────────────────────────────────────
+    print("=== Type conversions ===");
+    String aStr  = intToString(a);
+    int    back  = stringToInt("42");
+    String pStr  = floatToString(pi);
+    float  pBack = stringToFloat("9.81");
+    int    code  = charToInt('A');
+    char   ch    = intToChar(98);    # 'b'
+    String bStr  = boolToString(flagT);
+
+    print(aStr);
+    print(back);
+    print(pStr);
+    print(pBack);
+    print(code);
+    print(ch);
+    print(bStr);
+
+    # ── Arrays ────────────────────────────────────────────────
+    print("=== Arrays ===");
+    Array nums = newArray(5);
+    nums[0] = 100;
+    nums[1] = 200;
+    nums[2] = 300;
+    nums[3] = nums[0] + nums[1];   # 300
+    nums[4] = nums[2] * 2;         # 600
+
+    # Read elements directly inside expressions
+    int firstPlusLast = nums[0] + nums[4];
+    print(firstPlusLast); # 700
+
+    # Mixed-type array — Orion arrays accept any oDataType
+    Array mixed = newArray(3);
+    mixed[0] = "text";
+    mixed[1] = 42;
+    mixed[2] = 'X';
+    print(mixed[0]);
+    print(mixed[1]);
+    print(mixed[2]);
+
+    # ── Conditional jumps via jumpIf ──────────────────────────
+    print("=== Conditional jumps ===");
+    int n = a;
+    jumpIf(n > 5, bigBranch);
+    print("n is small");
+    goToLabel(afterBranch);
+bigBranch:
+    print("n is big");
+afterBranch:
+
+    # ── Loop: print array contents using jumpIf + goToLabel ──
+    print("=== Array iteration ===");
+    int i = 0;
+arrLoop:
+    jumpIf(i == 5, arrDone);
+    print(nums[i]);
+    i = i + 1;
+    goToLabel(arrLoop);
+arrDone:
+
+    # ── Loop: factorial of 6 ─────────────────────────────────
+    print("=== Factorial(6) ===");
+    int fact   = 1;
+    int k      = 1;
+factLoop:
+    jumpIf(k > 6, factDone);
+    fact = fact * k;
+    k    = k + 1;
+    goToLabel(factLoop);
+factDone:
+    print(fact); # 720
+
+    # ── Loop: sum of squares from 1..10 ──────────────────────
+    print("=== Sum of squares 1..10 ===");
+    int total = 0;
+    int j     = 1;
+sqLoop:
+    jumpIf(j > 10, sqDone);
+    total = total + j * j;
+    j     = j + 1;
+    goToLabel(sqLoop);
+sqDone:
+    print(total); # 385
+
+    # ── Integer-preserving division ──────────────────────────
+    print("=== Integer division ===");
+    int    exactDiv = 100 / 4;     # 25 (stays int — exact)
+    float  truncDiv = 7 / 2;       # 3.5 (becomes float — non-exact)
+    print(exactDiv);
+    print(truncDiv);
+
+    # ── Boolean composition with stored variables ───────────
+    print("=== Boolean composition ===");
+    boolean inRange = and(a > 0, a < 10);   # true
+    boolean either  = or(a == 0, b == 3);   # true
+    boolean negated = not(flagT);           # false
+    print(inRange);
+    print(either);
+    print(negated);
+
+    # ── pass statement ───────────────────────────────────────
+    print("=== Done ===");
+
+done:
+    pass;

@@ -46,7 +46,7 @@ class InstructionMemory:
         if address >= len(self.__instructions):
             print(address)
             # Raise an AddressError
-            raise AddressError("Jump address out of range")
+            raise AddressError(f"Jump address {address} out of range")
 
         self.__pc.jump(address)
     

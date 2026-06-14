@@ -2,7 +2,7 @@ from .FunctionCall import executeFunction
 from .Declaration import executeDeclaration
 from .Assignment import executeAssignment
 from ..Structures import dataMap
-# from .Expression import Expression
+from .Expression import evaluateExpression
 
 class Context:
     def __init__(self, instructionMemory, labelMap):
@@ -47,5 +47,6 @@ class Interpreter:
             return executeAssignment(self.context, instruction.children[0])
 
         elif instruction.children[0].symbol.name == "Expression":
-            # TODO
-            pass
+            return evaluateExpression(self.context, instruction.children[0])
+        elif instruction.children[0].matched_string == "pass;":
+            return

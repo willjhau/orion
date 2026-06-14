@@ -7,7 +7,7 @@ def execute(ctx, args):
         raise ArgumentError("Expected at least one argument, got 0")
     
     processedArgs = [evaluateExpression(ctx, arg).getValue() for arg in args]
-    if not all([isinstance(arg, oBool) for arg in processedArgs]):
+    if not all([isinstance(arg, bool) for arg in processedArgs]):
         raise ValueError("or must take boolean values as inputs")
     
     truth = [arg is True for arg in processedArgs]

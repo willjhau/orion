@@ -1,4 +1,24 @@
-main:
-boolean a = not(true);
-boolean b = not(a);
-print(xor(a,boolToString(b)));
+fibonacci:
+    int x = 0;
+    int y = 1;
+
+    print(x);
+    print(y);
+
+    int count = 0;
+    int temp;
+
+mainLoop:
+    jumpIf(count == 100, exit);
+    temp = x + y;
+    x = y;
+    y = temp;
+    count = count + 1;
+
+    print(y);
+    
+    goToLabel(mainLoop);
+
+exit:
+    pass;
+

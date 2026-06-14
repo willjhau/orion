@@ -50,7 +50,7 @@ class DataMap:
         # Check if the data exists
         if name not in self.__data:
             # Raise an error
-            raise NameError("Variable is not defined in the scope")
+            raise NameError(f"Variable {name} is not defined in the scope")
 
         return self.__data[name]['value']
 

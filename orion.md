@@ -1,6 +1,5 @@
-**ORION**
-
-Orion is a custom, statically typed programming language that mixes features from different languages such as Python, Java, and Assembly
+# ORION
+Orion is a custom, statically typed programming language that mixes features from different languages such as Python, C, and Assembly
 
 ## Features
 
@@ -45,22 +44,22 @@ see `example.txt`
 
 - Labels and jumps control the flow of the program - jump around the code by using the `jump()` function to jump to a label
 
-- - `jump(label);`
+- - `goToLabel(label);`
 
-- If statement blocks are controlled by the inbuilt `jumpif(condition, label)` function
+- If statement blocks are controlled by the inbuilt `jumpIf(condition, label)` function
 
 - - `jumpif(x == 5, label);`
 - - condition can be any boolean expression
 
 - Labels do NOT interfere with the regular program flow, they are simply markers to jump to
 
-- The `out(string)` function is used to output to the console
+- The `print(string);` function is used to output to the console
 
-- - `out("Hello, World!");`
+- - `print("Hello, World!");`
 
-- The `in()` function is used to get input from the user
+- The `takeInput()` function is used to get input from the user. Inputs are always taken as a string
 
-- - `int x = in();`
+- - `int x = takeInput();`
 
 
 

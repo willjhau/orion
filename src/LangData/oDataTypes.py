@@ -68,6 +68,8 @@ class oInt(oDataType):
         if isinstance(value, oDataType):
             value = value.getValue()
 
+        if value is None:
+            return True
         try:
             if int(value) == value:
                 return True
@@ -97,7 +99,8 @@ class oFloat(oDataType):
         """
         if isinstance(value, oDataType):
             value = value.getValue()
-            
+        if value is None:
+            return True
         try:
             float(value)
         except ValueError:
@@ -128,7 +131,8 @@ class oString(oDataType):
         """
         if isinstance(value, oDataType):
             value = value.getValue()
-            
+        if value is None:
+            return True
         if type(value) == str:
             return True
         return False
@@ -155,14 +159,18 @@ class oBool(oDataType):
 
         Returns whether or not the value is a boolean
         """
+        value = valueRaw
         if isinstance(valueRaw, oDataType):
             value = valueRaw.getValue()
         if isinstance(valueRaw, oString):
             return False
+        if value is None:
+            return True
         if type(value) == bool:
             return True
         elif value == "true" or value == "false":
             return True
+
         return False
     
 class oChar(oDataType):
@@ -187,7 +195,8 @@ class oChar(oDataType):
         """
         if isinstance(value, oDataType):
             value = value.getValue()
-            
+        if value is None:
+            return True
         if type(value) == str and len(value) == 1:
             return True
         return False
